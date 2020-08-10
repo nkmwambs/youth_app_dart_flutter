@@ -1,7 +1,10 @@
+//import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:youth_development_app/screens/define_goal_and_task.dart';
 import 'package:youth_development_app/screens/dynamic_form.dart';
+import 'package:youth_development_app/screens/goal_setting_form.dart';
 import 'package:youth_development_app/screens/login2.dart';
 import 'package:youth_development_app/screens/render_textformfield.dart';
 import 'package:youth_development_app/screens/welcome.dart';
@@ -30,8 +33,10 @@ void main() {
     '/login':(context)=>LoginPage(),
     '/set_goals': (context)=>SetGoals(),
     '/dynamic_form':(context)=>DynamicForm(),
+    '/goal_setting_form' :(context)=>GoalSettingForm()
     //'/render_textformfield':(context)=>RenderTextFormField(),
-    '/define_goal_and_task':(context)=>DefineGoalAndTask(),
+    //'/define_goal_and_task':(context)=>DefineGoalAndTask(),
+    
   },
   // home: Scaffold(
   //   body:GoalAndTaskForm(),
