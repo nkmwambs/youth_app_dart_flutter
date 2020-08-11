@@ -17,8 +17,12 @@ class _GoalSettingFormState extends State<GoalSettingForm> {
 
   final _taskThree = TextEditingController();
 
+    Map data={};
+
   @override
   Widget build(BuildContext context) {
+    //Get data from themes form
+    data = ModalRoute.of(context).settings.arguments;
     return Scaffold(
         appBar: AppBar(title: Text('Goal Setting')),
         body: SingleChildScrollView(
@@ -80,10 +84,14 @@ class _GoalSettingFormState extends State<GoalSettingForm> {
   void _submit() {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      print(_goalTxtBox.text);
-      print(_taskOne.text);
-      print(_taskTwo.text);
-      print(_taskThree.text);
+      print('Theme ID: ${data['theme_id']}');
+      print('Theme Name: ${data['theme_name']}');
+      print('Theme_maxmum_goals: ${data['theme_maxmum_goals']}');
+      print('Logged In User ID: ${data['loggedInUser']}');
+      print('Goal Name: ${_goalTxtBox.text}');
+      print('Task One: ${_taskOne.text}');
+      print('Task Two: ${_taskTwo.text}');
+      print('Task Three: ${_taskThree.text}');
 
       //Call the API to pick values to Goal Table( ID=GoalID, GoalName=Goal1, Student_FK_id,GoalStatus, goalperiodId)
       //Call this to task to Task Table(GoalFKID, taskID, Taskname)

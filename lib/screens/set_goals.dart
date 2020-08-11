@@ -90,8 +90,7 @@ class _SetGoalsState extends State<SetGoals> {
                                   'theme_maxmum_goals':snapshot.data[index].maxGoalsForTheme,
                                   'loggedInUser':data['logged_in_user'],
                                 });
-                                print(
-                                    'id:${snapshot.data[index].theme_id} goal name:${snapshot.data[index].themeName}');
+                                //print( 'id:${snapshot.data[index].theme_id} goal name:${snapshot.data[index].themeName}');
                               });
                             }),
                         IconButton(
