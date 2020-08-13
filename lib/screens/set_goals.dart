@@ -23,7 +23,7 @@ class _SetGoalsState extends State<SetGoals> {
 
     List themesData = jsonDecode(response.body);
 
-    print(themesData);
+    //print(themesData);
 
     for (var theme in themesData) {
       BeneficiaryThemes beneficiaryTheme = BeneficiaryThemes(

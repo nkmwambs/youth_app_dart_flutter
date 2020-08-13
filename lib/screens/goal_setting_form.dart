@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:youth_development_app/classes/goal_and_tasks.dart';
+import 'package:youth_development_app/web_services/call_api.dart';
 
 class GoalSettingForm extends StatefulWidget {
   @override
@@ -80,10 +83,32 @@ class _GoalSettingFormState extends State<GoalSettingForm> {
       color: Colors.indigo,
     );
   }
+  _addGoalsAndTasks() async{
 
-  void _submit() {
+    Map goalData = {
+       'goal_name': _goalTxtBox.text.trim(),
+       'user_id' : '${data['loggedInUser']}',
+       'theme_id':'${data['theme_id']}',
+       'created_by': '${data['loggedInUser']}',
+    };
+
+    //Call the webservice for data from API
+    var response = await CallApi().postData(goalData, 'goalsandtask/insert_goals');
+
+// if (response.statusCode == 200) {
+//     print(json.decode(response.body));
+//   } else {
+//     print(response.statusCode);
+//   }
+    Map body = json.decode(response.body);
+    print(body);
+
+
+  }
+  void _submit() async{
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
+      await _addGoalsAndTasks();
       print('Theme ID: ${data['theme_id']}');
       print('Theme Name: ${data['theme_name']}');
       print('Theme_maxmum_goals: ${data['theme_maxmum_goals']}');
