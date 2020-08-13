@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:youth_development_app/classes/goal_and_tasks.dart';
+import 'package:youth_development_app/web_services/call_api.dart';
 
 class GoalSettingForm extends StatefulWidget {
   @override
@@ -17,8 +20,12 @@ class _GoalSettingFormState extends State<GoalSettingForm> {
 
   final _taskThree = TextEditingController();
 
+    Map data={};
+
   @override
   Widget build(BuildContext context) {
+    //Get data from themes form
+    data = ModalRoute.of(context).settings.arguments;
     return Scaffold(
         appBar: AppBar(title: Text('Goal Setting')),
         body: SingleChildScrollView(
@@ -76,14 +83,40 @@ class _GoalSettingFormState extends State<GoalSettingForm> {
       color: Colors.indigo,
     );
   }
+  _addGoalsAndTasks() async{
 
-  void _submit() {
+    Map goalData = {
+       'goal_name': _goalTxtBox.text.trim(),
+       'user_id' : '${data['loggedInUser']}',
+       'theme_id':'${data['theme_id']}',
+       'created_by': '${data['loggedInUser']}',
+    };
+
+    //Call the webservice for data from API
+    var response = await CallApi().postData(goalData, 'goalsandtask/insert_goals');
+
+// if (response.statusCode == 200) {
+//     print(json.decode(response.body));
+//   } else {
+//     print(response.statusCode);
+//   }
+    Map body = json.decode(response.body);
+    print(body);
+
+
+  }
+  void _submit() async{
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      print(_goalTxtBox.text);
-      print(_taskOne.text);
-      print(_taskTwo.text);
-      print(_taskThree.text);
+      await _addGoalsAndTasks();
+      print('Theme ID: ${data['theme_id']}');
+      print('Theme Name: ${data['theme_name']}');
+      print('Theme_maxmum_goals: ${data['theme_maxmum_goals']}');
+      print('Logged In User ID: ${data['loggedInUser']}');
+      print('Goal Name: ${_goalTxtBox.text}');
+      print('Task One: ${_taskOne.text}');
+      print('Task Two: ${_taskTwo.text}');
+      print('Task Three: ${_taskThree.text}');
 
       //Call the API to pick values to Goal Table( ID=GoalID, GoalName=Goal1, Student_FK_id,GoalStatus, goalperiodId)
       //Call this to task to Task Table(GoalFKID, taskID, Taskname)

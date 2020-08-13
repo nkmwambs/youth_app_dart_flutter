@@ -1,15 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:youth_development_app/Widget/bezierContainer.dart';
 import 'package:youth_development_app/classes/utilities.dart';
 import 'package:youth_development_app/screens/sign_up.dart';
 import 'package:youth_development_app/web_services/call_api.dart';
-import 'package:youth_development_app/web_services/user_service.dart';
-
-//import 'Widget/bezierContainer.dart';
 
 class LoginPage extends StatefulWidget {
   final String title;
@@ -210,7 +206,7 @@ class _LoginPageState extends State<LoginPage> {
     //Call the webservice for data from API
     var response = await CallApi().postData(data, 'users/login');
     Map body = jsonDecode(response.body);
-    print(body);
+    //print(body);
     //Show snackbar if
     if (body['status'] == false) {
       return Utilities(this._scaffoldState).showMessage(body['message'],false);
